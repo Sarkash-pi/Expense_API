@@ -1,5 +1,6 @@
 # import rest_framework
 # from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,4 +20,11 @@ class ExpenseListCreateView(APIView):
     def get(self, request):
         expenses = Expense.objects.all()
         serializer = ExpenseSerializer(expenses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ExpenseRetrieveUpdateDestroyView(APIView):
+    def get(self, request, pk):
+        expense = get_object_or_404(Expense, pk=pk)
+        serializer = ExpenseSerializer(expense, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
