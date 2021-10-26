@@ -7,7 +7,7 @@ urlpatterns = [
         "expenses/", views.ExpenseListCreateView.as_view(), name="expense-list-create",
     ),
     path(
-        "expense/<str:pk>",
+        "expenses/<str:pk>",
         views.ExpenseRetrieveUpdateDestroyView.as_view(),
         name="expense-retrieve-update-destroy",
     ),
