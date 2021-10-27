@@ -93,4 +93,3 @@ class ExpenseTest(TestCase):
         self.assertEqual(status.HTTP_400_BAD_REQUEST, res.status_code)
         self.assertEqual(json_resp["amount"], ["This field is required."])
         self.assertEqual(json_resp["merchant"], ["This field is required."])
-
