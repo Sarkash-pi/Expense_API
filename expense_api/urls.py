@@ -11,6 +11,11 @@ urlpatterns = [
         views.ExpenseRetrieveUpdateDestroyView.as_view(),
         name="expense-retrieve-update-destroy",
     ),
+    path(
+        "resigtration/",
+        views.RegistrationCreateView.as_view(),
+        name="registration-create",
+    ),
 ]
 
 
