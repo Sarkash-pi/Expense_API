@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "expenses/", views.ExpenseListCreateView.as_view(), name="expense-list-create",
+        "expenses/", views.ExpenseListCreateView.as_view(), name="expense-list-create"
     ),
     path(
         "expenses/<str:pk>",
@@ -12,3 +12,5 @@ urlpatterns = [
         name="expense-retrieve-update-destroy",
     ),
 ]
+
+
