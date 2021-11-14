@@ -16,6 +16,7 @@ urlpatterns = [
         views.RegistrationCreateView.as_view(),
         name="registration-create",
     ),
+    path("sessions/", views.SessionCreateView.as_view(), name="session-create")
 ]
 
 
