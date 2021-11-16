@@ -15,11 +15,15 @@ from expense_api.authentication import generate_access_token
 class ExpenseListCreateView(ListCreateAPIView):
     serializer_class = ExpenseSerializer
     queryset = Expense.objects.all()
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ExpenseRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = ExpenseSerializer
     queryset = Expense.objects.all()
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class RegistrationCreateView(CreateAPIView):
     serializer_class = UserSerializer

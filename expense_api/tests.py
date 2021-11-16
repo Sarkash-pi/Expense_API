@@ -12,6 +12,9 @@ import jwt
 class ExpenseTest(TestCase):
     def setUp(self):
         self.client = APIClient()
+        self.user = UserFactory(password="password123")
+        payload = {"username": self.user.username, "password": "password123"}
+        self.client.post(reverse("expense_api:session-create"), payload, format="json")
 
     def test_create_expense(self):
         url = reverse("expense_api:expense-list-create")
@@ -143,28 +146,6 @@ class SessionCreateTest(TestCase):
         self.assertTrue("jwt" in res.data)
         self.assertEqual(self.user.id, decoded_token["user_id"])
 
-
-class SessionRetrieveDestroyTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.user = UserFactory(password="password123")
-
-    # def test_retrieve_session(self):
-    #     # we have to use a non-hashed version of password
-    #     payload = {"username": self.user.username, "password": "password123"}
-    #     # create a session
-    #     self.client.post(reverse("expense_api:session-create"), payload, format="json")
-    #     # retrieve session
-    #     res = self.client.get(
-    #         reverse("expense_api:session-retrieve-destroy"), format="json"
-    #     )
-
-
-    #     self.assertEqual(status.HTTP_200_OK, res.status_code)
-    #     self.assertEqual(res.data["data"]["id"], self.user.id)
-    #     self.assertEqual(res.data["data"]["first_name"], self.user.first_name)
-    #     self.assertEqual(res.data["data"]["last_name"], self.user.last_name)
-    #     self.assertEqual(res.data["data"]["email"], self.user.email)
 
 class SessionRetrieveDestroyTest(TestCase):
     def setUp(self):
