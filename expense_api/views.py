@@ -2,6 +2,8 @@ from rest_framework.generics import ListCreateAPIView, get_object_or_404, Retrie
 from rest_framework.views import APIView
 from rest_framework import exceptions, status
 from rest_framework.response import Response
+from expense_api.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from django.contrib.auth.models import User
 
@@ -43,3 +45,14 @@ class SessionCreateView(APIView):
         response.data = {"jwt": token}
     
         return response
+
+
+
+class SessionRetrieveDestroyView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response({"data": serializer.data})
