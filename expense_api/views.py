@@ -1,15 +1,19 @@
-from rest_framework.generics import ListCreateAPIView, get_object_or_404, RetrieveUpdateDestroyAPIView, CreateAPIView
-from rest_framework.views import APIView
-from rest_framework import exceptions, status
-from rest_framework.response import Response
-from expense_api.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
-
 from django.contrib.auth.models import User
+from rest_framework import exceptions, status
+from rest_framework.generics import (
+    CreateAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+    get_object_or_404,
+)
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from expense_api.authentication import JWTAuthentication, generate_access_token
 
 from .models import Expense
 from .serializers import ExpenseSerializer, UserSerializer
-from expense_api.authentication import generate_access_token
 
 
 class ExpenseListCreateView(ListCreateAPIView):
@@ -24,6 +28,7 @@ class ExpenseRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = Expense.objects.all()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
 
 class RegistrationCreateView(CreateAPIView):
     serializer_class = UserSerializer
@@ -47,15 +52,13 @@ class SessionCreateView(APIView):
         response = Response()
         response.set_cookie(key="jwt", value=token, httponly=True)
         response.data = {"jwt": token}
-    
-        return response
 
+        return response
 
 
 class SessionRetrieveDestroyView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-
 
     def get(self, request):
         serializer = UserSerializer(request.user)

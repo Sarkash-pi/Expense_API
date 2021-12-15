@@ -1,12 +1,12 @@
+import jwt
+from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from django.conf import settings
 
 from .factories import ExpenseFactory, UserFactory
 from .models import Expense
-import jwt
 
 
 class ExpenseTest(TestCase):
@@ -150,7 +150,7 @@ class SessionCreateTest(TestCase):
 class SessionRetrieveDestroyTest(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = UserFactory(password='password123')
+        self.user = UserFactory(password="password123")
 
     def test_retrieve_session(self):
         # we have to use a non-hashed version of passord
@@ -171,7 +171,8 @@ class SessionRetrieveDestroyTest(TestCase):
     def test_delete_session(self):
         # we have to use a non-hashed version pf password
         payload = {"username": self.user.username, "password": "password123"}
-        # create a session 
+
+        # create a session
         self.client.post(reverse("expense_api:session-create"), payload, format="json")
         # delete a session
         self.client.delete(

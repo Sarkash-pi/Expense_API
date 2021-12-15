@@ -2,10 +2,11 @@ import datetime
 
 import jwt
 from django.conf import settings
-from rest_framework.authentication import BaseAuthentication
-from rest_framework import exceptions
-from rest_framework.generics import get_object_or_404
 from django.contrib.auth.models import User
+from rest_framework import exceptions
+from rest_framework.authentication import BaseAuthentication
+from rest_framework.generics import get_object_or_404
+
 
 def generate_access_token(user):
     payload = {
@@ -15,7 +16,6 @@ def generate_access_token(user):
     }
 
     return jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-
 
 
 class JWTAuthentication(BaseAuthentication):

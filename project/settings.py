@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "expense_api",
     "rest_framework",
     "rest_framework_api_key",
-    
 ]
 
 MIDDLEWARE = [
@@ -120,7 +119,7 @@ STATIC_URL = "/static/"
 TESTING = "test" in sys.argv[1:]
 
 if TESTING:
-    PASSWORD_HASHERS =  ["django.contrib.auth.hashers.MD5PasswordHasher"]
+    PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
